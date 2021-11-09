@@ -2,7 +2,6 @@ class Food {
     #value = 'empty';
     #no = 0;
     constructor(value, no){
-        
         this.#no = no;
         if(value) this.#value = value;
     }
