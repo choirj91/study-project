@@ -5,6 +5,7 @@ var sort = require('./sort');
 var process = require('./process');
 var eventLoop = require('./eventLoop');
 var dataStructure = require('./dataStructure');
+var classStudy = require('./classStudy');
 var os = require('./os');
 
 const importRouter = (app) => {
@@ -16,6 +17,7 @@ const importRouter = (app) => {
     app.use('/eventLoop', eventLoop);
     app.use('/os', os);
     app.use('/data-structure', dataStructure);
+    app.use('/class-study', classStudy);
 }
 
 module.exports = {importRouter};
