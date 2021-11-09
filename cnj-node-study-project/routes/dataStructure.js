@@ -4,6 +4,7 @@ const router = express.Router();
 // controllers
 const { DataStructureController } = require('../controllers');
 
-router.get('/', DataStructureController.arrayStudy);
+router.get('/array', DataStructureController.arrayStudy);
+router.get('/linked-list', DataStructureController.linkedListStudy);
 
 module.exports = router;

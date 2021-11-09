@@ -1,3 +1,5 @@
+const { DataStructureService } = require('../services');
+
 const arrayStudy = async (req, res, next) => {
 
     const food = ["수박", "사이다", "바나나", "삼겹살", "오이", "상추"];
@@ -15,13 +17,7 @@ const arrayStudy = async (req, res, next) => {
     console.log("추가 후 - ", food);
     // 추가 후 -  ['수박', '사이다', '추가', '바나나', '삼겹살', '오이', '상추']
 
-    // food.splice(2, 1); // 바나나 제거
-    // console.log("바나나 제거 후 = ", food);
-    // // 바나나 제거 후 =  [ '수박', '사이다', '삼겹살', '오이', '상추' ]
-    
-    // food.splice(2, 0, "버섯"); // 버섯 추가
-    // console.log("추가 후 = ", food);
-    // // 추가 후 =  [ '수박', '사이다', '버섯', '삼겹살', '오이', '상추' ]
+
 
     return res.status(200).json({
         message: "success",
@@ -36,7 +32,7 @@ const arrayStudy = async (req, res, next) => {
 const insertArrayValue = (arr, value, path) => {
 
     // 추가할 위치의 원소를 옮겨 공간 확보
-    for (let i = arr.length -1; i >= path; i--) {
+    for (let i = arr.length - 1; i >= path; i--) {
         arr[i + 1] = arr[i];
     }
 
@@ -46,6 +42,29 @@ const insertArrayValue = (arr, value, path) => {
     return arr;
 }
 
+const linkedListStudy = async (req, res, next) => {
+
+    const linkedList = new DataStructureService.LinkedList();
+
+    linkedList.insertFirst('1. 바나나');
+    linkedList.insertLast('2. 사과');
+    linkedList.insertLast('3. 딸기');
+    linkedList.insertLast('4. 수박');
+    linkedList.insertLast('5. 참외');
+    console.log('getData==', linkedList.getData(2));
+    linkedList.removeData(2);
+    linkedList.insertAt("3. 복숭아", 2);
+
+    const data = linkedList.log();
+    linkedList.printLinkedListValue();
+
+    return res.status(200).json({
+        massage: "success",
+        linkedList: data
+    });
+}
+
 module.exports = {
-    arrayStudy
+    arrayStudy,
+    linkedListStudy
 }
