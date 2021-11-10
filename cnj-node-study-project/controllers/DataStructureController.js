@@ -42,6 +42,7 @@ const insertArrayValue = (arr, value, path) => {
     return arr;
 }
 
+/* 연결리스트 */
 const linkedListStudy = async (req, res, next) => {
 
     const linkedList = new DataStructureService.LinkedList();
@@ -64,7 +65,49 @@ const linkedListStudy = async (req, res, next) => {
     });
 }
 
+/* 스택 */
+const stackStudy = async (req, res, next) => {
+
+    const stack = new DataStructureService.Stack();
+    stack.in('사과-0');
+    stack.in('수박-1');
+    stack.in('바나나-2');
+    stack.in('참외-3');
+    stack.get();
+    stack.out();
+    stack.get();
+
+    const data = stack.get();
+
+    return res.status(200).json({
+        massage: "success",
+        arr: data
+    });
+}
+
+/* 큐 */
+const queueStudy = async (req, res, next) => {
+
+    const queue = new DataStructureService.Queue();
+    queue.in('바나나');
+    queue.in('사과');
+    queue.in('참외');
+    queue.in('수박');
+    queue.get();
+    queue.out();
+    queue.get();
+
+    const data = queue.get();
+
+    return res.status(200).json({
+        massage: "success",
+        arr: data
+    });
+}
+
 module.exports = {
     arrayStudy,
-    linkedListStudy
+    linkedListStudy,
+    stackStudy,
+    queueStudy
 }

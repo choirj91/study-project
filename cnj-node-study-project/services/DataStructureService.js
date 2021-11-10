@@ -132,6 +132,71 @@ class LinkedList {
     }
 }
 
+class Stack {
+    #items;
+    #count;
+    constructor() {
+        this.#items = [];
+        this.#count = 0;
+    }
+
+    in(data) {
+        this.#items[this.#count] = data; // 배열의 마지막 위치에 추가
+        // this.#items.push(data); // javascript 내장 객체 사용할 경우
+        this.#count ++;  //  배열 길이 증가
+    }
+
+    out() {
+        // 마지막 요소 삭제 택 1 
+        // pop - 배열의 마지막 요소를 삭제하고 value를 반환
+        // splice - pram1 부터 pram2 개의 요소를 삭제하고 삭제한 배열을 반환
+
+        // 1
+        // this.#items.splice(this.#count -1, 1); // return ['value']
+
+        // 2
+        this.#items.pop(); // return value;
+        this.#count--; // 배열 길이 감소
+    }
+
+    // 가장 마지막으로 들어온 데이터 확인
+    peek() {
+        return this.#items[this.#count-1];
+    }
+
+    get() {
+        console.log('size=', this.#count, 'items==', this.#items);
+        return this.#items;
+    }
+}
+
+class Queue {
+    #items;
+    #size;
+    constructor() {
+        this.#items = {};
+        this.#size = 0;
+    }
+
+    in(data){
+        this.#items[this.#size] = data;
+        this.#size++;
+    }
+
+    out() {
+        delete this.#items[this.#size-1];
+        this.#size--;
+    }
+
+    get() {
+        console.log('size=', this.#size, 'items=', this.#items);
+        return this.#items;
+    }
+
+}
+
 module.exports = {
-    LinkedList
+    LinkedList,
+    Stack,
+    Queue,
 }

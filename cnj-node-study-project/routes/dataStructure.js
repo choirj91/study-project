@@ -6,5 +6,7 @@ const { DataStructureController } = require('../controllers');
 
 router.get('/array', DataStructureController.arrayStudy);
 router.get('/linked-list', DataStructureController.linkedListStudy);
+router.get('/stack', DataStructureController.stackStudy);
+router.get('/queue', DataStructureController.queueStudy);
 
 module.exports = router;
