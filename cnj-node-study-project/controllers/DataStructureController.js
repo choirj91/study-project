@@ -105,9 +105,32 @@ const queueStudy = async (req, res, next) => {
     });
 }
 
+/* 덱 */
+const dequeStudy = async (req, res, next) => {
+
+    const deque = new DataStructureService.Deque();
+    deque.firstIn('2 바나나');
+    deque.lastIn('3 참외');
+    deque.lastIn('4 수박');
+    deque.firstIn('1 사과');
+
+    deque.get();
+    deque.lastOut();
+    deque.firstOut();
+    deque.get();
+
+    const data = deque.get();
+
+    return res.status(200).json({
+        massage: "success",
+        arr: data
+    });
+}
+
 module.exports = {
     arrayStudy,
     linkedListStudy,
     stackStudy,
-    queueStudy
+    queueStudy,
+    dequeStudy
 }

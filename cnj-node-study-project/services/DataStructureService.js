@@ -195,8 +195,48 @@ class Queue {
 
 }
 
+class Deque {
+    #items;
+    #size;
+    constructor() {
+        this.#items = [];
+        this.#size = 0;
+    }
+
+    // 처음 삽입
+    firstIn(data) {
+        this.#items.unshift(data);
+        this.#size++;
+    }
+
+    // 처음 제거
+    firstOut() {
+        this.#items.shift();
+        this.#size--;
+    }
+    
+    // 마지막 삽입
+    lastIn(data) {
+        this.#items.push(data);
+        this.#size++;
+    }
+    
+    // 마지막 제거
+    lastOut() {
+        this.#items.pop();
+        this.#size--;
+    }
+
+    // 확인
+    get() {
+        console.log('size=', this.#size, 'items=', this.#items);
+        return this.#items;
+    }
+}
+
 module.exports = {
     LinkedList,
     Stack,
     Queue,
+    Deque,
 }

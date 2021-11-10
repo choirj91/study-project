@@ -8,5 +8,6 @@ router.get('/array', DataStructureController.arrayStudy);
 router.get('/linked-list', DataStructureController.linkedListStudy);
 router.get('/stack', DataStructureController.stackStudy);
 router.get('/queue', DataStructureController.queueStudy);
+router.get('/deque', DataStructureController.dequeStudy);
 
 module.exports = router;
