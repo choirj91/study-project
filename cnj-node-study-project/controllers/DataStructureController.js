@@ -127,10 +127,46 @@ const dequeStudy = async (req, res, next) => {
     });
 }
 
+/* 이진 탐색 트리 */
+const binarySearchTree = async (req, res, next) => {
+    const bst = new DataStructureService.BST();
+
+    bst.add(9);
+    bst.add(4);
+    bst.add(17);
+    bst.add(3);
+    bst.add(6);
+    bst.add(22);
+    bst.add(5);
+    bst.add(7);
+    bst.add(20);
+    
+    console.log("findMinHeight=",bst.findMinHeight());
+    console.log("findMaxHeight=",bst.findMaxHeight());
+    console.log("isBalanced=",bst.isBalanced());
+    bst.add(10);
+    console.log("findMinHeight=",bst.findMinHeight());
+    console.log("findMaxHeight=",bst.findMaxHeight());
+    console.log("isBalanced=",bst.isBalanced());
+    console.log('inOrder: ' + bst.inOrder());
+    console.log('preOrder: ' + bst.preOrder());
+    console.log('postOrder: ' + bst.postOrder());
+    
+    console.log('levelOrder: ' + bst.levelOrder());
+
+    const data = bst.get();
+
+    return res.status(200).json({
+        massage: "success",
+        bst: data
+    });
+}
+
 module.exports = {
     arrayStudy,
     linkedListStudy,
     stackStudy,
     queueStudy,
-    dequeStudy
+    dequeStudy,
+    binarySearchTree
 }
