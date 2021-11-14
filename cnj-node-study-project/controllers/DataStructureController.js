@@ -131,28 +131,36 @@ const dequeStudy = async (req, res, next) => {
 const binarySearchTree = async (req, res, next) => {
     const bst = new DataStructureService.BST();
 
-    bst.add(9);
-    bst.add(4);
-    bst.add(17);
-    bst.add(3);
+    bst.add(30);
+    bst.add(25);
+    bst.add(59);
+    bst.add(42);
+    bst.add(16);
+    bst.add(29);
+    bst.add(62);
+    bst.add(65);
     bst.add(6);
-    bst.add(22);
-    bst.add(5);
-    bst.add(7);
-    bst.add(20);
+    bst.add(18);
+    bst.add(27);
     
     console.log("findMinHeight=",bst.findMinHeight());
     console.log("findMaxHeight=",bst.findMaxHeight());
     console.log("isBalanced=",bst.isBalanced());
-    bst.add(10);
     console.log("findMinHeight=",bst.findMinHeight());
     console.log("findMaxHeight=",bst.findMaxHeight());
     console.log("isBalanced=",bst.isBalanced());
     console.log('inOrder: ' + bst.inOrder());
     console.log('preOrder: ' + bst.preOrder());
     console.log('postOrder: ' + bst.postOrder());
-    
     console.log('levelOrder: ' + bst.levelOrder());
+    
+    bst.remove(6);
+    
+    console.log('inOrder: ' + bst.inOrder());
+    console.log('preOrder: ' + bst.preOrder());
+    console.log('postOrder: ' + bst.postOrder());
+    console.log('levelOrder: ' + bst.levelOrder());
+
 
     const data = bst.get();
 
@@ -168,5 +176,5 @@ module.exports = {
     stackStudy,
     queueStudy,
     dequeStudy,
-    binarySearchTree
+    binarySearchTree,
 }

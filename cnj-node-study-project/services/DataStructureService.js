@@ -351,20 +351,21 @@ class BST {
 
             // 값을 찾은 경우 삭제 처리
             if (data == node.data) {
-                // node has no children 
+
+                // case1 단말 노드인 경우
                 if (node.left == null && node.right == null) {
                     return null;
                 }
-                // node has no left child 
+                // case2 왼쪽 자식이 없는 경우
                 if (node.left == null) {
                     return node.right;
                 }
-                // node has no right child 
+                // case3 오른쪽 자식이 없는 경우
                 if (node.right == null) {
                     return node.left;
                 }
-                // node has two children 
-                var tempNode = node.right;
+                // case4 왼쪽 오른쪽 자식이 모두 있는 경우
+                let tempNode = node.right;
                 while (tempNode.left !== null) {
                     tempNode = tempNode.left;
                 }
@@ -372,12 +373,12 @@ class BST {
                 node.right = removeNode(node.right, tempNode.data);
                 return node;
             } 
-            // 작은 값인 경우 왼쪽으로 탐색
+            // 작은 값인 경우 왼쪽
             else if (data < node.data) {
                 node.left = removeNode(node.left, data);
                 return node;
             } 
-            // 큰 값인 경우 오른쪽으로 탐색
+            // 큰 값인 경우 오른쪽
             else {
                 node.right = removeNode(node.right, data);
                 return node;
@@ -385,13 +386,92 @@ class BST {
         }
         this.root = removeNode(this.root, data);
     }
+
+    /* 중위 순회 */
+    // 왼쪽, 나, 오른쪽 순서로 방문
+    inOrder() {
+        
+        if (this.root == null) return null; 
+        else {
+            let result = [];
+
+            const traverseInOrder = (node) => {
+                // 왼쪽이 존재하는 경우, 현재 노드를 기준 재귀
+                node.left && traverseInOrder(node.left);
+                // 현재 노드 push
+                result.push(node.data);
+                // 오른쪽이 존재하는 경우, 현재 노드를 기준 재귀
+                node.right && traverseInOrder(node.right);
+            }
+            traverseInOrder(this.root);
+            return result;
+        };
+    }
+
+    /* 전위 순회 */
+    // 나, 왼쪽, 오른쪽 순서로 방문
+    preOrder() {
+        if (this.root == null) return null;  
+        else {
+            let result = [];
+            const traversePreOrder = (node) => {
+                // 방문 하는 대로 나 자신 push
+                result.push(node.data);
+                // 왼쪽이 존재하는 경우, 현재 노드를 기준 재귀
+                node.left && traversePreOrder(node.left);
+                // 오른쪽이 존재하는 경우, 현재 노드를 기준 재귀
+                node.right && traversePreOrder(node.right);
+            };
+            traversePreOrder(this.root);
+            return result;
+        };
+    }
+
+    /* 후위 순회 */
+    // 왼쪽, 오른쪽, 나 순서로 방문
+    postOrder() {
+        if (this.root == null) return null; 
+        else {
+            let result = [];
+            const traversePostOrder = (node) => {
+                // 왼쪽이 존재하는 경우, 현재 노드를 기준 재귀
+                node.left && traversePostOrder(node.left);
+                // 오른쪽이 존재하는 경우, 현재 노드를 기준 재귀
+                node.right && traversePostOrder(node.right);
+                // 마지막으로 나 자신 push
+                result.push(node.data);
+            };
+            traversePostOrder(this.root);
+            return result;
+        }
+    }
+
+    /* 레벨 순회 */
+    // 루트, 1레벨 노드, 2레벨 노드 순서로 방문
+    levelOrder() {
+        let result = [];
+        let temp = [];
+        if (this.root == null) return null;
+        else {
+            temp.push(this.root);
+            while (temp.length > 0) {
+                const node = temp.shift(); // 첫 번째 요소 제거 후 반환
+                result.push(node.data); // 루트 값 작성
+                // 왼쪽 노드가 있는 경우
+                if (node.left != null) temp.push(node.left);
+                // 오른쪽 노드가 있는 경우
+                if (node.right != null) temp.push(node.right);
+            };
+            return result;
+        }
+    };
+
     isBalanced() {
         return (this.findMinHeight() >= this.findMaxHeight() - 1)
     }
     findMinHeight(node = this.root) {
-        if (node == null) {
-            return -1;
-        };
+        if (node == null) return -1;
+        
         let left = this.findMinHeight(node.left);
         let right = this.findMinHeight(node.right);
         if (left < right) {
@@ -401,9 +481,8 @@ class BST {
         };
     }
     findMaxHeight(node = this.root) {
-        if (node == null) {
-            return -1;
-        };
+        if (node == null) return -1;
+        
         let left = this.findMaxHeight(node.left);
         let right = this.findMaxHeight(node.right);
         if (left > right) {
@@ -412,69 +491,6 @@ class BST {
             return right + 1;
         };
     }
-    inOrder() {
-        if (this.root == null) {
-            return null;
-        } else {
-            var result = new Array();
-            function traverseInOrder(node) {
-                node.left && traverseInOrder(node.left);
-                result.push(node.data);
-                node.right && traverseInOrder(node.right);
-            }
-            traverseInOrder(this.root);
-            return result;
-        };
-    }
-    preOrder() {
-        if (this.root == null) {
-            return null;
-        } else {
-            var result = new Array();
-            function traversePreOrder(node) {
-                result.push(node.data);
-                node.left && traversePreOrder(node.left);
-                node.right && traversePreOrder(node.right);
-            };
-            traversePreOrder(this.root);
-            return result;
-        };
-    }
-    postOrder() {
-        if (this.root == null) {
-            return null;
-        } else {
-            var result = new Array();
-            function traversePostOrder(node) {
-                node.left && traversePostOrder(node.left);
-                node.right && traversePostOrder(node.right);
-                result.push(node.data);
-            };
-            traversePostOrder(this.root);
-            return result;
-        }
-    }
-
-    levelOrder() {
-        let result = [];
-        let Q = [];
-        if (this.root != null) {
-            Q.push(this.root);
-            while (Q.length > 0) {
-                let node = Q.shift();
-                result.push(node.data);
-                if (node.left != null) {
-                    Q.push(node.left);
-                };
-                if (node.right != null) {
-                    Q.push(node.right);
-                };
-            };
-            return result;
-        } else {
-            return null;
-        };
-    };
 }
 
 module.exports = {
