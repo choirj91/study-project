@@ -142,24 +142,33 @@ const binarySearchTree = async (req, res, next) => {
     bst.add(6);
     bst.add(18);
     bst.add(27);
-    
-    console.log("findMinHeight=",bst.findMinHeight());
-    console.log("findMaxHeight=",bst.findMaxHeight());
-    console.log("isBalanced=",bst.isBalanced());
-    console.log("findMinHeight=",bst.findMinHeight());
-    console.log("findMaxHeight=",bst.findMaxHeight());
-    console.log("isBalanced=",bst.isBalanced());
+
+    console.log("findMinHeight=", bst.findMinHeight());
+    console.log("findMaxHeight=", bst.findMaxHeight());
+    console.log("isBalanced=", bst.isBalanced());
+    console.log("findMinHeight=", bst.findMinHeight());
+    console.log("findMaxHeight=", bst.findMaxHeight());
+    console.log("isBalanced=", bst.isBalanced());
     console.log('inOrder: ' + bst.inOrder());
+    // inOrder: 6,16,18,25,27,29,30,42,59,62,65
     console.log('preOrder: ' + bst.preOrder());
+    // preOrder: 30,25,16,6,18,29,27,59,42,62,65
     console.log('postOrder: ' + bst.postOrder());
+    // postOrder: 6,18,16,27,29,25,42,65,62,59,30
     console.log('levelOrder: ' + bst.levelOrder());
-    
+    // levelOrder: 30,25,59,16,29,42,62,6,18,27,65
+
     bst.remove(6);
-    
+
     console.log('inOrder: ' + bst.inOrder());
+    // inOrder: 16,18,25,27,29,30,42,59,62,65
     console.log('preOrder: ' + bst.preOrder());
+    // preOrder: 30,25,16,18,29,27,59,42,62,65
     console.log('postOrder: ' + bst.postOrder());
+    // postOrder: 18,16,27,29,25,42,65,62,59,30
     console.log('levelOrder: ' + bst.levelOrder());
+    // levelOrder: 30,25,59,16,29,42,62,18,27,65
+
 
 
     const data = bst.get();
@@ -170,6 +179,50 @@ const binarySearchTree = async (req, res, next) => {
     });
 }
 
+/* 인접 리스트 그래프 */
+const adjacencyListGragh = async (req, res, next) => {
+
+    var graph = new DataStructureService.AdjacencyListGraph();
+    var vertices = ['A', 'B', 'C', 'D', 'E'];
+
+    for (var i = 0; i < vertices.length; i++) {
+        graph.addVertex(vertices[i]);
+    }
+
+    graph.addEdge('A', 'B');
+    graph.addEdge('A', 'E');
+    graph.addEdge('A', 'C');
+    graph.addEdge('B', 'C');
+    graph.addEdge('B', 'D');
+    graph.addEdge('C', 'D');
+    graph.addEdge('D', 'E');
+
+    graph.print();
+    // A -> B E C 
+    // B -> A C D 
+    // C -> A B D
+    // D -> B C E
+    // E -> A D
+
+    // DFS
+    graph.dfs('A');
+
+    // BFS
+    graph.bfs('A');
+
+    return res.status(200).json({
+        message: "success"
+    });
+}
+
+/* 인접 행렬 그래프 */
+const adjacencyMatrixGragh = async (req, res, next) => {
+
+    return res.status(200).json({
+        message: "success"
+    });
+}
+
 module.exports = {
     arrayStudy,
     linkedListStudy,
@@ -177,4 +230,6 @@ module.exports = {
     queueStudy,
     dequeStudy,
     binarySearchTree,
+    adjacencyListGragh,
+    adjacencyMatrixGragh,
 }

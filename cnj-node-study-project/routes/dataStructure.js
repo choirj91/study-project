@@ -10,5 +10,7 @@ router.get('/stack', DataStructureController.stackStudy);
 router.get('/queue', DataStructureController.queueStudy);
 router.get('/deque', DataStructureController.dequeStudy);
 router.get('/binary-search-tree', DataStructureController.binarySearchTree);
+router.get('/list-gragh', DataStructureController.adjacencyListGragh);
+router.get('/matrix-gragh', DataStructureController.adjacencyMatrixGragh);
 
 module.exports = router;

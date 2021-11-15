@@ -1,5 +1,5 @@
 /* 노드 */
-class Node {
+class LinkedListNode {
     constructor(data, nextNode = null) {
         this.data = data; // 데이터
         this.nextNode = nextNode; // 연결된 노드
@@ -17,7 +17,7 @@ class LinkedList {
 
     // 첫 번째 위치로 삽입
     insertFirst(data) {
-        const node = new Node(data, this.#head);  // 노드 생성 (데이터, 현재 헤드를 다음 노드로 연결)
+        const node = new LinkedListNode(data, this.#head);  // 노드 생성 (데이터, 현재 헤드를 다음 노드로 연결)
         this.#head = node;                        // 첫 노드 헤드에 위치
         this.#size++;                             // 총 개수 증가
     }
@@ -42,7 +42,7 @@ class LinkedList {
 
     // 마지막 위치에 데이터 삽입
     insertLast(data) {
-        let node = new Node(data); // 노드 생성
+        let node = new LinkedListNode(data); // 노드 생성
 
         if (!this.#head) this.#head = node; // 현재 리스트에 값이 하나도 없을 경우, 헤드 위치에 바로 노드 연결.
         else {
@@ -70,7 +70,7 @@ class LinkedList {
         // 첫 번째 위치일 경우 첫번째 삽입 함수 실행
         if (index === 0) return this.insertFirst(data);
 
-        const node = new Node(data); // 노드 생성
+        const node = new LinkedListNode(data); // 노드 생성
         let current = this.#head; // 현재 위치의 노드
         let previous; // 이전 위치의 노드
         let count = 0;  // 현재 위치
@@ -172,27 +172,26 @@ class Stack {
 
 class Queue {
     #items;
-    #size;
     constructor() {
-        this.#items = {};
-        this.#size = 0;
+        this.#items = [];
     }
 
     in(data) {
-        this.#items[this.#size] = data;
-        this.#size++;
+        this.#items.push(data);
     }
 
     out() {
-        delete this.#items[this.#size - 1];
-        this.#size--;
+        return this.#items.shift();  // 0번째 제거
     }
 
     get() {
-        console.log('size=', this.#size, 'items=', this.#items);
+        console.log('size=', this.#items.length, 'items=', this.#items);
         return this.#items;
     }
 
+    isEmpty() {
+        return this.#items.length == 0;
+    }
 }
 
 class Deque {
@@ -263,7 +262,7 @@ class BST {
             this.root = new BSTNode(data);
             return;
         } else { // 이미 데이터가 존재 하는 경우
-            
+
             const addTree = (node) => {
                 if (data < node.data) { // 노드의 값보다 작은 값인 경우 왼쪽
                     if (node.left === null) {
@@ -372,12 +371,12 @@ class BST {
                 node.data = tempNode.data;
                 node.right = removeNode(node.right, tempNode.data);
                 return node;
-            } 
+            }
             // 작은 값인 경우 왼쪽
             else if (data < node.data) {
                 node.left = removeNode(node.left, data);
                 return node;
-            } 
+            }
             // 큰 값인 경우 오른쪽
             else {
                 node.right = removeNode(node.right, data);
@@ -390,8 +389,8 @@ class BST {
     /* 중위 순회 */
     // 왼쪽, 나, 오른쪽 순서로 방문
     inOrder() {
-        
-        if (this.root == null) return null; 
+
+        if (this.root == null) return null;
         else {
             let result = [];
 
@@ -411,7 +410,7 @@ class BST {
     /* 전위 순회 */
     // 나, 왼쪽, 오른쪽 순서로 방문
     preOrder() {
-        if (this.root == null) return null;  
+        if (this.root == null) return null;
         else {
             let result = [];
             const traversePreOrder = (node) => {
@@ -430,7 +429,7 @@ class BST {
     /* 후위 순회 */
     // 왼쪽, 오른쪽, 나 순서로 방문
     postOrder() {
-        if (this.root == null) return null; 
+        if (this.root == null) return null;
         else {
             let result = [];
             const traversePostOrder = (node) => {
@@ -471,7 +470,7 @@ class BST {
     }
     findMinHeight(node = this.root) {
         if (node == null) return -1;
-        
+
         let left = this.findMinHeight(node.left);
         let right = this.findMinHeight(node.right);
         if (left < right) {
@@ -482,7 +481,7 @@ class BST {
     }
     findMaxHeight(node = this.root) {
         if (node == null) return -1;
-        
+
         let left = this.findMaxHeight(node.left);
         let right = this.findMaxHeight(node.right);
         if (left > right) {
@@ -493,10 +492,99 @@ class BST {
     }
 }
 
+
+class AdjacencyListGraph {
+    constructor() {
+        this.list = {};
+    }
+
+    // 정점 추가
+    addVertex(v) {
+        this.list[v] = [];  //  "v" : []   > map 과 같은 키와 밸류 형태
+    }
+
+    // 간선 추가
+    addEdge(v, w) {
+        this.list[v].push(w);
+        this.list[w].push(v); // 무방향 그래프 경우 양쪽 추가용
+    }
+
+    // 인접 리스트 그리기
+    print() {
+        let keys = Object.keys(this.list);
+        for (let i = 0; i < keys.length; i++) {
+            let value = this.list[keys[i]];
+            let result = "";
+            for (let j of value) result += j + " ";
+            console.log(keys[i] + " -> " + result);
+        }
+    }
+
+    // Depth-First Search 깊이우선탐색
+    dfs(startingNode) {
+
+        let visited = {}; // 방문 기록
+
+        const search = (node, visited) => {
+            visited[node] = true;
+
+            // 인접 vertex 가져오기
+            let getNeighbours = this.list[node];
+
+            for (let i in getNeighbours) {
+                let getNode = getNeighbours[i];
+                // 깊이 탐색
+                if (!visited[getNode]) search(getNode, visited);
+            }
+        }
+
+        search(startingNode, visited);
+        console.log('DFS = ', Object.keys(visited).join(" => "));
+    }
+
+    // Breath-First Search 너비우선탐색
+    bfs(startingNode) {
+
+        let visited = {};
+        let result = []; // 순서 기록
+
+        let q = new Queue();
+
+        visited[startingNode] = true;
+        q.in(startingNode);
+
+        while (!q.isEmpty()) {
+            let getQueueElement = q.out();
+            result.push(getQueueElement);
+
+            let getList = this.list[getQueueElement];
+
+            for (let i in getList) {
+                let neigh = getList[i];
+
+                if (!visited[neigh]) {
+                    visited[neigh] = true;
+                    q.in(neigh);
+                }
+            }
+        }
+
+        console.log("BFS =  ", result.join(" -> "));
+        // A B D E C F
+    }
+}
+
+class AdjacencyMatrixGraph {
+
+}
+
+
 module.exports = {
     LinkedList,
     Stack,
     Queue,
     Deque,
     BST,
+    AdjacencyListGraph,
+    AdjacencyMatrixGraph,
 }
