@@ -12,5 +12,6 @@ router.get('/deque', DataStructureController.dequeStudy);
 router.get('/binary-search-tree', DataStructureController.binarySearchTree);
 router.get('/list-gragh', DataStructureController.adjacencyListGragh);
 router.get('/matrix-gragh', DataStructureController.adjacencyMatrixGragh);
+router.get('/time-complexity', DataStructureController.timeComplexity);
 
 module.exports = router;
