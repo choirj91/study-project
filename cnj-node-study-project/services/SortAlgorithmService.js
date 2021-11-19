@@ -1,38 +1,44 @@
 
 // 버블 정렬
 const bubbleSort = (array) => {
-    let length = array.length;
-    let i, j, temp;
-    for (i = 0; i < length - 1; i++) {
-        for (j = 0; j < length - 1 - i; j++) {
-            if (array[j] > array[j + 1]) {
-                temp = array[j];
-                array[j] = array[j + 1];
-                array[j + 1] = temp;
-            }
+    for (let i = 0; i < array.length - 1; i++) {
+        for (let j = 0; j < array.length -i -1; j++) {
+            if(array[j] > array[j+1]) [array[j], array[j+1]] = [array[j+1], array[j]];
         }
     }
-    return array;
 };
 
 
 // 선택 정렬
-const selectionSort = (arr) => {
-    for (let i = 0; i < arr.length - 1; i++) {
+const selectionSort = (array) => {
+    // 각 자리
+    for (let i = 0; i < array.length; i++) {
         let minIndex = i;
-        for (let j = i + 1; j < arr.length; j++) {
-            if (arr[minIndex] > arr[j]) {
-                minIndex = j
-            }
+        // 가장 작은 값 찾기
+        for (let j = i + 1; j < array.length; j++) {
+            if(array[minIndex] > array[j]) minIndex = j;
         }
-        if (minIndex !== i) {
-            [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
-        }
+        if(minIndex !== i ) [array[i], array[minIndex]] = [array[minIndex], array[i]];
     }
-    return arr;
+    return array;
+}
+
+// 삽입 정렬
+const insertionSort = (array) => {
+    for(let i = 1; i < array.length-1; i++) {
+        let curIndex = i - 1;
+        let curValue = array[i];
+        while(curIndex >= 0 && array[curIndex] > curValue) {
+            array[curIndex + 1] = array[curIndex];
+            curIndex--;
+        }
+        array[curIndex + 1] = curValue;
+    }
+    return array;
 }
 
 module.exports = {
     selectionSort,
     bubbleSort,
+    insertionSort,
 }

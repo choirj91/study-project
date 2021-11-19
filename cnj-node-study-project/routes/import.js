@@ -7,6 +7,7 @@ var eventLoop = require('./eventLoop');
 var dataStructure = require('./dataStructure');
 var classStudy = require('./classStudy');
 var sortAlgorithm = require('./sortAlgorithm');
+var javascriptGlobalObject = require('./javascriptGlobalObject');
 var os = require('./os');
 
 const importRouter = (app) => {
@@ -20,6 +21,7 @@ const importRouter = (app) => {
     app.use('/os', os);
     app.use('/data-structure', dataStructure);
     app.use('/class-study', classStudy);
+    app.use('/javascript-global-objects', javascriptGlobalObject);
 }
 
 module.exports = {importRouter};
