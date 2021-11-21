@@ -51,7 +51,7 @@ const selectionSort = async (req, res, next) => {
 // 삽입 정렬
 const insertionSort = async (req, res, next) => {
 
-    const arr = makeRandomValueArr(10);
+    const arr = makeRandomValueArr(100);
 
     console.time('insertion');
     const result = SortAlgorithmService.insertionSort(arr);
@@ -67,7 +67,7 @@ const insertionSort = async (req, res, next) => {
 const allSort = async (req, res, next) => {
     const bubbleArr = makeRandomValueArr(10000);
     const selectionArr = makeRandomValueArr(10000);
-    const insertionArr = makeRandomValueArr(100);
+    const insertionArr = makeRandomValueArr(10000);
 
     console.time('bubble');
     SortAlgorithmService.bubbleSort(bubbleArr);
@@ -77,14 +77,12 @@ const allSort = async (req, res, next) => {
     SortAlgorithmService.selectionSort(selectionArr);
     console.timeEnd('selection');
 
-    console.log('insertionArr', insertionArr);
     console.time('insertion');
     SortAlgorithmService.insertionSort(insertionArr);
     console.timeEnd('insertion');
-    console.log('insertionArr', insertionArr);
 
     return res.status(200).json({
-        message: "success"
+        message: "success",
     })
 }
 

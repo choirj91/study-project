@@ -8,6 +8,7 @@ var dataStructure = require('./dataStructure');
 var classStudy = require('./classStudy');
 var sortAlgorithm = require('./sortAlgorithm');
 var javascriptGlobalObject = require('./javascriptGlobalObject');
+var baekjoon = require('./baekjoon');
 var os = require('./os');
 
 const importRouter = (app) => {
@@ -22,6 +23,7 @@ const importRouter = (app) => {
     app.use('/data-structure', dataStructure);
     app.use('/class-study', classStudy);
     app.use('/javascript-global-objects', javascriptGlobalObject);
+    app.use('/baekjoon', baekjoon);
 }
 
 module.exports = {importRouter};
