@@ -63,11 +63,28 @@ const insertionSort = async (req, res, next) => {
     });
 }
 
+// 쉘 정렬
+const shellSort = async (req, res, next) => {
+
+    const arr = makeRandomValueArr(10);
+
+    console.log('arr==', arr);
+    console.time('shell');
+    const result = SortAlgorithmService.shellSort(arr);
+    console.timeEnd('shell');
+    console.log('result==', result);
+
+    return res.status(200).json({
+        message: "success",
+    });
+}
+
 // 전체 정렬 시간 체크
 const allSort = async (req, res, next) => {
     const bubbleArr = makeRandomValueArr(10000);
-    const selectionArr = makeRandomValueArr(10000);
-    const insertionArr = makeRandomValueArr(10000);
+    const selectionArr = bubbleArr.slice();
+    const insertionArr = bubbleArr.slice();
+    const shellArr = bubbleArr.slice();
 
     console.time('bubble');
     SortAlgorithmService.bubbleSort(bubbleArr);
@@ -81,16 +98,21 @@ const allSort = async (req, res, next) => {
     SortAlgorithmService.insertionSort(insertionArr);
     console.timeEnd('insertion');
 
+    console.log('shellArr', shellArr);
+    console.time('shell');
+    SortAlgorithmService.shellSort(shellArr);
+    console.timeEnd('shell');
+    console.log('shellArr', shellArr);
+
     return res.status(200).json({
         message: "success",
     })
 }
-
 
 module.exports = {
     selectionSort,
     bubbleSort,
     insertionSort,
     allSort,
-
+    shellSort,
 }

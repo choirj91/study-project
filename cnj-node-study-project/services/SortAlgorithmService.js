@@ -37,8 +37,30 @@ const insertionSort = (array) => {
     return array;
 }
 
+// 쉘 정렬
+const shellSort = (arr) =>{
+	let length = arr.length; // 전체 길이
+
+    // 전체 길이의 1/2로 줄여가며 Gap 간격으로 설정
+	for (let gap = Math.floor(length/2); gap > 0; gap = Math.floor(gap/2))	{
+		for (let i = gap; i < length; i++) {
+			let temp = arr[i];
+			
+			let j = i;
+            while(j >= gap && arr[j-gap] > temp) {
+                arr[j] = arr[j-gap];
+                j-=gap;
+            }
+
+			arr[j] = temp;
+		}
+	}
+	return arr;
+}
+
 module.exports = {
     selectionSort,
     bubbleSort,
     insertionSort,
+    shellSort,
 }
