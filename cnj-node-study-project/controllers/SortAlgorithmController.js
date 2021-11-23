@@ -79,12 +79,53 @@ const shellSort = async (req, res, next) => {
     });
 }
 
+// 힙 정렬
+const heapSort = async (req, res, next) => {
+
+    const minArr = makeRandomValueArr(10);
+    console.log('minArr==', minArr);
+    console.time('min Heap');
+    const minResult = SortAlgorithmService.heapSort(minArr, 'min');
+    console.timeEnd('min Heap');
+    console.log('minResult==', minResult);
+
+    const maxArr = makeRandomValueArr(10);
+    console.log('maxArr==', maxArr);
+    console.time('max Heap');
+    const maxResult = SortAlgorithmService.heapSort(maxArr, 'max');
+    console.timeEnd('max Heap');
+    console.log('maxResult==', maxResult);
+
+
+    return res.status(200).json({
+        message: "success",
+    });
+}
+
+// 병합 정렬
+const mergeSort = async (req, res, next) => {
+
+    const arr = makeRandomValueArr(10);
+
+    console.log('arr==', arr);
+    console.time('merge');
+    const result = SortAlgorithmService.mergeSort(arr);
+    console.timeEnd('merge');
+    console.log('result==', result);
+
+    return res.status(200).json({
+        message: "success",
+    });
+}
+
 // 전체 정렬 시간 체크
 const allSort = async (req, res, next) => {
-    const bubbleArr = makeRandomValueArr(10000);
+    const bubbleArr = makeRandomValueArr(50000);
     const selectionArr = bubbleArr.slice();
     const insertionArr = bubbleArr.slice();
     const shellArr = bubbleArr.slice();
+    const heapArr = bubbleArr.slice();
+    const mergeArr = bubbleArr.slice();
 
     console.time('bubble');
     SortAlgorithmService.bubbleSort(bubbleArr);
@@ -98,11 +139,17 @@ const allSort = async (req, res, next) => {
     SortAlgorithmService.insertionSort(insertionArr);
     console.timeEnd('insertion');
 
-    console.log('shellArr', shellArr);
     console.time('shell');
     SortAlgorithmService.shellSort(shellArr);
     console.timeEnd('shell');
-    console.log('shellArr', shellArr);
+
+    console.time('heap');
+    SortAlgorithmService.heapSort(heapArr, 'max');
+    console.timeEnd('heap');
+
+    console.time('merge');
+    SortAlgorithmService.mergeSort(mergeArr);
+    console.timeEnd('merge');
 
     return res.status(200).json({
         message: "success",
@@ -115,4 +162,6 @@ module.exports = {
     insertionSort,
     allSort,
     shellSort,
+    heapSort,
+    mergeSort,
 }
