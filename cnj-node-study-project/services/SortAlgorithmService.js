@@ -90,6 +90,41 @@ const mergeSort = (array) => {
     return merge(mergeSort(left), mergeSort(array));
 }
 
+// 위치 변경
+const swap = (arr, leftIndex, rightIndex) => {
+    const temp = arr[leftIndex];
+    arr[leftIndex] = arr[rightIndex];
+    arr[rightIndex] = temp;
+}
+
+
+// 분할
+const partition = (arr, start, end) => {
+    const pivot = arr[end]; // 피벗 설정
+    let left = start;
+    for (let i = start; i < end; i++) {
+        if (arr[i] < pivot) {
+            swap(arr, i, left);
+            left++;
+        }
+    }
+    swap(arr, left, end);
+    return left;
+};
+
+// 퀵 정렬
+const quickSort = (arr, start, end) => {
+    if (start >= end) {
+        return;
+    }
+
+    let index = partition(arr, start, end);
+
+    quickSort(arr, start, index - 1);
+    quickSort(arr, index + 1, end);
+}
+
+
 module.exports = {
     selectionSort,
     bubbleSort,
@@ -97,4 +132,5 @@ module.exports = {
     shellSort,
     heapSort,
     mergeSort,
+    quickSort,
 }

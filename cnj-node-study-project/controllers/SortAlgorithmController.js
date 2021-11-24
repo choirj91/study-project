@@ -118,6 +118,22 @@ const mergeSort = async (req, res, next) => {
     });
 }
 
+// 퀵 정렬
+const quickSort = async (req, res, next) => {
+
+    const arr = makeRandomValueArr(10);
+
+    console.log('arr==', arr);
+    console.time('quick');
+    SortAlgorithmService.quickSort(arr, 0 , arr.length -1);
+    console.timeEnd('quick');
+    console.log('result==', arr);
+
+    return res.status(200).json({
+        message: "success"
+    });
+}
+
 // 전체 정렬 시간 체크
 const allSort = async (req, res, next) => {
     const bubbleArr = makeRandomValueArr(50000);
@@ -126,6 +142,7 @@ const allSort = async (req, res, next) => {
     const shellArr = bubbleArr.slice();
     const heapArr = bubbleArr.slice();
     const mergeArr = bubbleArr.slice();
+    const quickArr = bubbleArr.slice();
 
     console.time('bubble');
     SortAlgorithmService.bubbleSort(bubbleArr);
@@ -151,6 +168,10 @@ const allSort = async (req, res, next) => {
     SortAlgorithmService.mergeSort(mergeArr);
     console.timeEnd('merge');
 
+    console.time('quick');
+    SortAlgorithmService.quickSort(quickArr, 0 , quickArr.length -1);
+    console.timeEnd('quick');
+
     return res.status(200).json({
         message: "success",
     })
@@ -164,4 +185,5 @@ module.exports = {
     shellSort,
     heapSort,
     mergeSort,
+    quickSort,
 }

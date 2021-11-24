@@ -10,6 +10,7 @@ router.get('/insertion', SortAlgorithmController.insertionSort);
 router.get('/shell', SortAlgorithmController.shellSort);
 router.get('/heap', SortAlgorithmController.heapSort);
 router.get('/merge', SortAlgorithmController.mergeSort);
+router.get('/quick', SortAlgorithmController.quickSort);
 router.get('/', SortAlgorithmController.allSort);
 
 module.exports = router;
