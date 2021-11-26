@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/', (req, res, next) => {
+    
 
     console.log('node Version - ', process.version); // 설치된 노드 버전
     console.log('arch - ', process.arch); // 프로세서 아키텍처

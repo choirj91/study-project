@@ -3,6 +3,7 @@ const ClassStudyController = require('./ClassStudyController');
 const SortAlgorithmController = require('./SortAlgorithmController');
 const GlobalObjectsController = require('./GlobalObjectsController');
 const BaekjoonController = require('./BaekjoonController');
+const CasheController = require('./CasheController');
 
 module.exports = {
     DataStructureController,
@@ -10,4 +11,5 @@ module.exports = {
     SortAlgorithmController,
     GlobalObjectsController,
     BaekjoonController,
+    CasheController,
 }

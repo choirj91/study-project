@@ -1,15 +1,17 @@
-var indexRouter = require('./index');
-var usersRouter = require('./users');
-var keywordRouter = require('./keyword');
-var sort = require('./sort');
-var process = require('./process');
-var eventLoop = require('./eventLoop');
-var dataStructure = require('./dataStructure');
-var classStudy = require('./classStudy');
-var sortAlgorithm = require('./sortAlgorithm');
-var javascriptGlobalObject = require('./javascriptGlobalObject');
-var baekjoon = require('./baekjoon');
-var os = require('./os');
+const indexRouter = require('./index');
+const usersRouter = require('./users');
+const keywordRouter = require('./keyword');
+const sort = require('./sort');
+const process = require('./process');
+const eventLoop = require('./eventLoop');
+const dataStructure = require('./dataStructure');
+const classStudy = require('./classStudy');
+const sortAlgorithm = require('./sortAlgorithm');
+const javascriptGlobalObject = require('./javascriptGlobalObject');
+const baekjoon = require('./baekjoon');
+const os = require('./os');
+const cashe = require('./cashe');
+
 
 const importRouter = (app) => {
     app.use('/', indexRouter);
@@ -24,6 +26,7 @@ const importRouter = (app) => {
     app.use('/class-study', classStudy);
     app.use('/javascript-global-objects', javascriptGlobalObject);
     app.use('/baekjoon', baekjoon);
+    app.use('/cashe', cashe);
 }
 
 module.exports = {importRouter};
