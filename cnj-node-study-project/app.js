@@ -1,4 +1,4 @@
-require('./preApp');
+require('./javascriptStudy');
 require('./simpleFileServer');
 var createError = require('http-errors');
 var express = require('express');
