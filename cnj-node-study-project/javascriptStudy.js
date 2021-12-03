@@ -120,4 +120,96 @@ function hoisting() {
 }
 hoisting();
 
+// context
+/* 
+실행 콘텍스트(Excution Context): {
+    렉시컬 컨텍스트(Lexical Context): {
+        환경 레코드(Environment Record): { > 구분 이유는 기록 대상에 따라 달라서
+            선언적 환경 레코드(DER): { < function, 변수, catch 문에서 사용 (정적임)
+                point: 123
+            },
+            오브젝트 환경 레코드(OER) : {} > 글로벌 함수와 변수, with 문에서 사용 (동적임)
+        },
+        외부 렉시컬 환경 참조(Outer Lexical Environment Record) : {},
+    },
+    변수 환경 컴포넌트(Variable Environment Component): {},
+    this 바인딩 컴포넌트(This Binding Component): {},
+}
+*/
+
+var base = 200;
+function getPoint(bonus) {
+    var point = 100;
+    return point + base + bonus;
+}
+console.log(getPoint(70));
+
+/* 실행 콘텍스트(EC): {
+    렉시털 환경 컴포넌트(LEC) = {
+        환경 레코드(ER): {
+            bonus: 70,
+            point: undefined
+        },
+        외부 렉시컬 환경 참조(OLER): {
+            base: 200
+        }
+    },
+    변수 환경 컴포넌트(VEC): {},
+    this 바인딩 컴포넌트(TBC): {}
+} */
+
+function book() {
+    function get() {
+        return point;
+    };
+    var point = 123;
+    return get();
+};
+console.log(book());
+
+/* 
+실행 콘텍스트(Excution Context): {
+    렉시컬 컨텍스트(Lexical Context): {
+        환경 레코드(Environment Record): {
+            get: function() {},
+            point: undefined,
+        },
+        외부 렉시컬 환경 참조(Outer Lexical Environment Record) : {},
+    },
+    변수 환경 컴포넌트(Variable Environment Component): {},
+    this 바인딩 컴포넌트(This Binding Component): {},
+}
+*/
+
+// this 바인딩
+var obj = { point : 100};
+obj.getPoint = function() {
+    return this.point;
+};
+console.log(obj.getPoint());
+
+
+/* 호출 스택 */
+// window.onload = function() {
+//     "use strict"
+    
+//     debugger;
+//     function setMain() {
+//         function one(){
+//             two();
+//             console.log(1);
+//         };
+//         function two(){
+//             three();
+//             console.log(2);
+//         };
+//         function three(){
+//             console.log(3);
+//         };
+//         one();
+//     }
+//     setMain();
+// };
+
+
 console.log('------------------------------ End!!');
