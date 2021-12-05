@@ -212,4 +212,42 @@ console.log(obj.getPoint());
 // };
 
 
+// 인스턴스 상속 
+// es5
+function Book(title){
+    this.title = title;
+}
+
+Book.prototype.getTitle = function() {
+    return this.title;
+}
+
+function Point(title){
+    Book.call(this, title);
+};
+
+Point.prototype = Object.create(Book.prototype, {});
+var obj = new Point("자바스크립트");
+console.log("Es5Object",obj.getTitle());
+
+// es6
+class Es6Book{
+    constructor(title){
+        this.title = title;
+    }
+    getTitle(){
+        return this.title;
+    }
+}
+class Es6Point extends Es6Book{
+    constructor(title) {
+        super(title);
+    }
+}
+
+const es6Obj = new Es6Point("자바스크립트");
+console.log("es6Obj", es6Obj.getTitle());
+
+
+
 console.log('------------------------------ End!!');
