@@ -248,6 +248,123 @@ class Es6Point extends Es6Book{
 const es6Obj = new Es6Point("자바스크립트");
 console.log("es6Obj", es6Obj.getTitle());
 
+// this
+var book = {
+    value: 123,
+    get: function() {
+        var value = 456;
+        console.log('this === ',this);
+        console.log('this.value === ',this.value);
+    }
+};
+var fn = book.get;
+fn();
+book.get();
+
+
+// this, call
+
+this.value = 300;
+function get(value) {
+    console.log('value=', value);
+    console.log('this=', this.value);
+    return value + this.value;
+}
+console.log("get=",get(100));
+console.log("get=",get.call({value: 200},100));
+
+// 참조 변경
+var book = {
+    value: 123,
+    point: {
+        value: 456,
+        get: function() {
+            console.log('book get value==',this.value);
+        }
+    }
+};
+
+book.point.get.call(book);
+book.point.get.call(book.point);
+
+
+var title = "환영합니다.";
+var house = {
+    title: "집이예요~",
+    room: {
+    	title: "방입니다.",
+        getTitle: function() {
+            return this.title;
+        }
+    }
+}
+
+var fn = house.room.getTitle;
+fn();
+// 환영합니다.
+
+house.room.getTitle();
+// 방입니다.
+
+house.getTitle = house.room.getTitle;
+house.getTitle();
+// 집이예요~
+
+var fn = house.room.getTitle;
+fn.call(house);
+// 집이예요~
+
+house.room.getTitle.call(house);
+// 집이예요~
+
+house.getTitle = house.room.getTitle;
+house.getTitle.call(house);
+// 집이예요~
+
+// call, apply
+// call - 값이 고정일떄, apply 는 값이 유동적일때
+
+var obj = {0: 10, 1: 20, 2: 30};
+var data = [4, 5, 6];
+
+function get() {
+    for(let i = 0; i < arguments.length; i++){
+        console.log("arguments[i]=" + arguments[i]);
+        console.log("this[i]=" + this[i]);
+        console.log(arguments[i] + this[i]);
+    }
+}
+
+get.apply(obj, data);
+
+
+// this, callback
+
+var obj = {value: 100};
+var data = [5,6,7];
+
+function callback(element, index, data) {
+    return element + this.value;
+}
+
+function callbackGet(data){
+    return data.map(callback, obj);
+};
+
+var result = callbackGet(data);
+console.log('result ==', result);
+
+// bind 메소드
+// 두 번에 나누어 처리 1. function 오브젝트 생성, 2. 생성한 function 오브젝트를 함수로 호출
+var book = {
+    get: function() {
+        return Array.prototype.slice.call(arguments);
+    }
+};
+
+var obj = book.get.bind(this, 10, 20);
+var result = obj(30, 40);
+console.log('result ==', result);
 
 
 console.log('------------------------------ End!!');

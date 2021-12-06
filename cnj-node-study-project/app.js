@@ -13,6 +13,7 @@ var cacheControl = require('express-cache-controller');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+
 app.use(cacheControl());
 app.use(logger('dev'));
 app.use(express.json());
