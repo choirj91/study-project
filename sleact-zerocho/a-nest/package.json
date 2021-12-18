@@ -19,7 +19,14 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "seed:config": "ts-node ./node_modules/typeorm-seeding/dist/cli.js config",
+    "seed:run": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed",
+    "// 초기데이터 넣기": "",
+    "schema:drop": "ts-node ./node_modules/typeorm/cli.js schema:drop",
+    "// 테이블 모두 지울 때 사용 - synchronize 사용 X": "",
+    "schema:sync": "ts-node ./node_modules/typeorm/cli.js schema:sync",
+    "// 테이블 생성 - synchronize 사용 X": ""
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
@@ -29,12 +36,14 @@
     "@nestjs/platform-express": "^8.0.0",
     "@nestjs/swagger": "^5.1.5",
     "@nestjs/typeorm": "^8.0.2",
+    "bcrypt": "^5.0.1",
     "mysql2": "^2.3.3",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
     "swagger-ui-express": "^4.2.0",
-    "typeorm": "^0.2.41"
+    "typeorm": "^0.2.41",
+    "typeorm-seeding": "^1.6.1"
   },
   "devDependencies": {
     "@nestjs/cli": "^8.0.0",
