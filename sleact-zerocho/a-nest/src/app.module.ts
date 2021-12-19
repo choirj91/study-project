@@ -9,6 +9,13 @@ import { ChannelsModule } from './channels/channels.module';
 import { WorkspacesModule } from './workspaces/workspaces.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as ormconfig from '../ormconfig';
+import {
+  CustomBadRequestExceptionFilter,
+  CustomExceptionFilter,
+  CustomHttpExceptionFilter,
+} from './exception.filter';
+import { APP_FILTER } from '@nestjs/core';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -18,13 +25,18 @@ import * as ormconfig from '../ormconfig';
     ChannelsModule,
     WorkspacesModule,
     TypeOrmModule.forRoot(ormconfig),
+    AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    { provide: APP_FILTER, useClass: CustomBadRequestExceptionFilter },
+    { provide: APP_FILTER, useClass: CustomExceptionFilter },
+    { provide: APP_FILTER, useClass: CustomHttpExceptionFilter },
+  ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(LoggerMiddleware).forRoutes('*');
   }
-
 }

@@ -13,7 +13,14 @@
     "@typescript-eslint"
   ],
   "rules": {
-    "no-undef": "off"
+    "no-undef": "off",
+    'prettier/prettier': [
+      'warn',
+      'error',
+      {
+        endOfLine: 'auto'
+      }
+    ]
   },
   "settings": {
     "react": {
